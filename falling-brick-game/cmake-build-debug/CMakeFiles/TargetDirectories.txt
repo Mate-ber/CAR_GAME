@@ -1,0 +1,3 @@
+/Users/mateberiashvili/CLionProjects/falling-brick-game/cmake-build-debug/CMakeFiles/falling-brick-game.dir
+/Users/mateberiashvili/CLionProjects/falling-brick-game/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/mateberiashvili/CLionProjects/falling-brick-game/cmake-build-debug/CMakeFiles/rebuild_cache.dir

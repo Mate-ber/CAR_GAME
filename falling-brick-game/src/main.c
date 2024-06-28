@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <time.h>
+#include <stdlib.h>
 
 const int ScreenWidth = 800;
 const int ScreenHeight = 600;
@@ -12,9 +14,15 @@ SDL_Renderer *renderer;
 SDL_Texture* playertex;
 SDL_Texture* enemytex;
 SDL_Rect p_srcR, p_destR;
-SDL_Rect e_srcR, e_destR;
+SDL_Rect e_srcR, e_destR[100];
 static SDL_Event event;
 int counter;
+int r_cnt = 0;
+int int_w = 45;
+int int_h = 45;
+bool mov_rock = false;
+int ind_mov_rock = -1;
+int rock_dir = 1;
 
 void init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
 void handleEvents(void);
@@ -25,6 +33,7 @@ void render(void);
 void clean(void);
 void level_up(void);
 bool running(void) { return isRunning; }
+bool check_rocks(int r, int x);
 
 
 
@@ -38,18 +47,13 @@ int main( int argc, char* args[] )
 	uint32_t frameStart;
 	int frameTime;
 
+	srand(time(NULL));
+
 	init("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ScreenWidth, ScreenHeight, false);
 
 	bool flag = true;
 
-	p_destR.w = 100;
-	p_destR.h = 100;
-	p_destR.y = ScreenHeight / 2;
-
-	e_destR.w = 45;
-	e_destR.h = 45;
-	e_destR.x = ScreenWidth / 2 - e_destR.w / 2;
-	e_destR.y = ScreenHeight / 1.6 - e_destR.h / 1.6;
+	level_up();
 
 	while( running() )
 	{
@@ -128,16 +132,15 @@ void handleEvents(void){
 
 void update(void){
 
-	if(p_destR.x >= 700) {
-		level_up();
-	}
+	if(p_destR.x >= 700) level_up();
 
+	if(mov_rock && ( e_destR[ind_mov_rock].y >= 500 || e_destR[ind_mov_rock].y <= 50 ) ) rock_dir *= -1;
 
 	//check the movement of the player
 	if(event.type == SDL_KEYDOWN && event.key.repeat == 0) {
 		switch(event.key.keysym.sym) {
 			case SDLK_RIGHT:
-				p_destR.x += 10;
+				p_destR.x += 50;
 				break;
 			case SDLK_UP :
 				if( p_destR.y <= 100) break;
@@ -153,11 +156,16 @@ void update(void){
 		}
 	}
 
+	if(mov_rock) e_destR[ind_mov_rock].y += rock_dir * 3;
+
 	//checking if hit the car
-	if(AABB(p_destR, e_destR)) {
-		printf("\n\t*Collision Detected!*\n");
-		printf("\t*Game Over!*\n\n");
-		isRunning = false;
+	for(int i = 1; i <= r_cnt; i++) {
+
+		if(AABB(p_destR, e_destR[i])) {
+			printf("\n\t*Collision Detected!*\n");
+			printf("\t*Game Over!*\n\n");
+			isRunning = false;
+		}
 	}
 
 }
@@ -165,7 +173,11 @@ void update(void){
 void render(void){
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, playertex, NULL, &p_destR);
-	SDL_RenderCopy(renderer, enemytex, NULL, &e_destR);
+
+	for(int i = 1; i <= r_cnt; i++) {
+		SDL_RenderCopy(renderer, enemytex, NULL, &e_destR[i]);
+	}
+
 	SDL_RenderPresent(renderer);
 }
 
@@ -205,6 +217,22 @@ static bool AABB(SDL_Rect recA, SDL_Rect recB) {
 	return false;
 }
 
+bool check_rocks(int r, int x){
+
+	int int_x = (ScreenWidth + r) / 2 - int_w / 2;
+	int int_y = (ScreenHeight + r) / 1.6 - int_h / 1.6;
+
+	for(int i = x - 1; i >= 1; i--) {
+
+		if( abs(e_destR[i].x - int_x) <= 30 )return false;
+		if( abs(e_destR[i].y - int_y) <= 30 )return false;
+
+	}
+
+	return true;
+
+}
+
 void level_up(void){
 	p_destR.w = 100;
 	p_destR.h = 100;
@@ -212,5 +240,25 @@ void level_up(void){
 	p_destR.y = ScreenHeight / 2;
 
 
+	if(r_cnt < 5) r_cnt ++;
 
+	for(int i = 1; i <= r_cnt; i++) {
+		e_destR[i].w = int_w;
+		e_destR[i].h = int_h;
+
+
+		int r = ( rand() % 600 ) - 300;
+
+		while( ! check_rocks(r, i) ){
+			r = ( rand() % 600 ) - 300;
+		}
+
+		e_destR[i].x = (ScreenWidth + r) / 2 - e_destR[i].w / 2;
+		e_destR[i].y = (ScreenHeight + r) / 1.6 - e_destR[i].h / 1.6;
+
+	}
+
+	if(r_cnt == 5) mov_rock = true;
+
+	if(mov_rock) ind_mov_rock = rand() % 5;
 }

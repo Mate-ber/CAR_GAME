@@ -23,6 +23,7 @@ void update(void);
 static SDL_Texture* LoadTexture(const char* fileName, SDL_Renderer* ren);
 void render(void);
 void clean(void);
+void level_up(void);
 bool running(void) { return isRunning; }
 
 
@@ -40,6 +41,15 @@ int main( int argc, char* args[] )
 	init("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ScreenWidth, ScreenHeight, false);
 
 	bool flag = true;
+
+	p_destR.w = 100;
+	p_destR.h = 100;
+	p_destR.y = ScreenHeight / 2;
+
+	e_destR.w = 45;
+	e_destR.h = 45;
+	e_destR.x = ScreenWidth / 2 - e_destR.w / 2;
+	e_destR.y = ScreenHeight / 1.6 - e_destR.h / 1.6;
 
 	while( running() )
 	{
@@ -117,40 +127,31 @@ void handleEvents(void){
 }
 
 void update(void){
-	p_destR.w = 100;
-	p_destR.h = 100;
-	p_destR.y = ScreenHeight / 2;
+
+	if(p_destR.x >= 700) {
+		level_up();
+	}
+
 
 	//check the movement of the player
 	if(event.type == SDL_KEYDOWN && event.key.repeat == 0) {
 		switch(event.key.keysym.sym) {
 			case SDLK_RIGHT:
-				p_destR.x += 5;
+				p_destR.x += 10;
 				break;
-			case SDLK_UP:
+			case SDLK_UP :
+				if( p_destR.y <= 100) break;
 				p_destR.y -= 150;
-				p_destR.x += 3;
+				p_destR.x += 8;
 				break;
+			case SDLK_DOWN:
+				if( p_destR.y >= 400 ) break;
+				p_destR.y += 150;
+				p_destR.x += 8;
 			default:
 				break;
 		}
 	}
-
-	else if(event.type == SDL_KEYUP && event.key.repeat == 0) {
-		switch(event.key.keysym.sym) {
-			case SDLK_UP:
-				p_destR.y = ScreenHeight / 2;
-				break;
-			default:
-				break;
-		}
-	}
-
-
-	e_destR.w = 45;
-	e_destR.h = 45;
-	e_destR.x = ScreenWidth / 2 - e_destR.w / 2;
-	e_destR.y = ScreenHeight / 1.6 - e_destR.h / 1.6;
 
 	//checking if hit the car
 	if(AABB(p_destR, e_destR)) {
@@ -202,4 +203,14 @@ static bool AABB(SDL_Rect recA, SDL_Rect recB) {
 		return true;
 	}
 	return false;
+}
+
+void level_up(void){
+	p_destR.w = 100;
+	p_destR.h = 100;
+	p_destR.x = 0;
+	p_destR.y = ScreenHeight / 2;
+
+
+
 }

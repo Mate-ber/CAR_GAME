@@ -151,12 +151,12 @@ void update(void){
 			case SDLK_UP :
 				if( p_destR.y <= 100) break;
 				p_destR.y -= 150;
-				p_destR.x += 8;
+				p_destR.x += 30;
 				break;
 			case SDLK_DOWN:
 				if( p_destR.y >= 400 ) break;
 				p_destR.y += 150;
-				p_destR.x += 8;
+				p_destR.x += 30;
 			default:
 				break;
 		}

@@ -160,7 +160,7 @@ void update(void){
 
 	if(mov_rock) e_destR[ind_mov_rock].y += rock_dir * 3;
 
-	//checking if hit the car
+	//checking if we hit something
 	for(int i = 1; i <= r_cnt; i++) {
 
 		if(AABB(p_destR, e_destR[i])) {

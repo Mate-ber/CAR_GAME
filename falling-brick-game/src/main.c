@@ -243,7 +243,7 @@ static bool AABB(SDL_Rect recA, SDL_Rect recB) {
 bool check_rocks(int r, int x){
 
 	int int_x = (ScreenWidth + r) / 2 - int_w_rock / 2;
-	int int_y = (ScreenHeight + r) / 1.6 - int_h_rock / 1.6;
+	int int_y = (ScreenHeight + 1.2 * r) / 1.6 - int_h_rock / 1.6;
 
 	for(int i = x - 1; i >= 1; i--) {
 
@@ -280,10 +280,10 @@ void level_up(void){
 		e_destR[i].h = int_h_rock;
 
 
-		int r = ( rand() % 700 ) - 300;
+		int r = ( rand() % 600 ) - 400;
 
 		while( ! check_rocks(r, i) ){
-			r = ( rand() % 700 ) - 300;
+			r = ( rand() % 600 ) - 400;
 		}
 
 		e_destR[i].x = (ScreenWidth + r) / 2 - e_destR[i].w / 2;

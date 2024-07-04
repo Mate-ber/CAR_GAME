@@ -53,7 +53,7 @@ int main( int argc, char* args[] ) {
 
 	init("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ScreenWidth, ScreenHeight, false);
 
-	bool flag = true;
+
 
 	level_up();
 
@@ -77,11 +77,6 @@ int main( int argc, char* args[] ) {
 			SDL_Delay( frameDelay - frameTime );
 		}
 
-		if(p_destR.x >= ScreenWidth / 1.88 && flag)
-		{
-			printf("\n\t*No Collision Detected!*\n\t*You Won!*\n\n");
-			flag = false;
-		}
 	}
 
 	clean();
@@ -137,6 +132,7 @@ void handleEvents(void){
 }
 
 void update(void){
+    //clock_t start = clock();
 
 	if(p_destR.x >= 700) level_up();
 
@@ -175,9 +171,15 @@ void update(void){
 
 	}
 
+
+	//clock_t end = clock();
+	//double time_spent = (double)(end - start) / CLOCKS_PER_SEC;
+	//printf("Time spent in level_up: %f\n", time_spent);
+
 }
 
 void render(void){
+    //clock_t start = clock();
 
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, playertex, NULL, &p_destR);
@@ -188,6 +190,11 @@ void render(void){
 	}
 
 	SDL_RenderPresent(renderer);
+
+
+	//clock_t end = clock();
+	//double time_spent = (double)(end - start) / CLOCKS_PER_SEC;
+	//printf("Time spent in level_up: %f\n", time_spent);
 
 }
 
@@ -258,6 +265,8 @@ void change_txt(int ind){
 
 
 void level_up(void){
+    //clock_t start = clock();
+
 	p_destR.w = int_w_car;
 	p_destR.h = int_h_car;
 	p_destR.x = 0;
@@ -271,10 +280,10 @@ void level_up(void){
 		e_destR[i].h = int_h_rock;
 
 
-		int r = ( rand() % 600 ) - 300;
+		int r = ( rand() % 700 ) - 300;
 
 		while( ! check_rocks(r, i) ){
-			r = ( rand() % 600 ) - 300;
+			r = ( rand() % 700 ) - 300;
 		}
 
 		e_destR[i].x = (ScreenWidth + r) / 2 - e_destR[i].w / 2;
@@ -289,5 +298,8 @@ void level_up(void){
 		change_txt(ind_mov_rock);
 	}
 
+	//clock_t end = clock();
+	//double time_spent = (double)(end - start) / CLOCKS_PER_SEC;
+	//printf("Time spent in level_up: %f\n", time_spent);
 }
 

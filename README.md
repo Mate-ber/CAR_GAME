@@ -1,25 +1,57 @@
 # **CAR GAME**
 
-Welcome to the car game where you need to pass all the falling bricks and cars and go to the finish line.
+Welcome to **Car Game**, where your objective is to avoid falling bricks and cars while racing to the finish line!
 
-It uses the SDL2 library to render graphics and uses CMake as a build system.
+This fast-paced, thrilling game uses the **SDL2** library to render smooth graphics, and **CMake** is used for easy building and project management.
 
-How to Setup
+---
 
-1.Clone repository git clone https://github.com/Mate-ber/CAR_GAME.git
+## **How to Setup**
 
-2.Make sure to install all the needed files two your machine (For example SDL2)
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Mate-ber/CAR_GAME.git
+   ```
+2. **Install necessary dependencies:** 
+Make sure to install all required libraries on your machine, especially SDL2 and its related packages:
 
-How to Run
+SDL2
+(Optional) SDL2_image, SDL2_ttf, SDL2_net, SDL2_mixer
 
-1.Open the terminal and run the command cmake . (Make sure that cmake directory is present)
 
-2.Run the command make
+## **How to Run**
 
-3.Finally to play the game run the command ./falling-brick-game
+1. **Navigate to the project directory:**
 
-Usage
+  ```bash
+  cd CAR_GAME
+  ```
+2. **Build the project: Make sure CMake is installed, then run the following commands in the terminal:**
 
-Note: To use SDL2_image, SDL2_ttf, SDL2_net or SDL2_mixer, you should uncomment some instructions in the CMakeLists.txt file and re-execute the make command.
+  ```bash
+  cmake .
+  make
+  ```
 
-It is the simple game to pass time, that utilizes the SDL package. 
+3. **Launch the game: Once the build is complete, start playing by running:**
+
+  ```bash
+  ./falling-brick-game
+  ```
+## **Usage:**
+
+By default, the game uses the core SDL2 library for graphics.
+
+To use additional SDL2 features like SDL2_image, SDL2_ttf, SDL2_net, or SDL2_mixer, uncomment the relevant instructions in the CMakeLists.txt file and re-run the make command. (Should be done already make sure that it is correct)
+
+This game is a simple, fun way to pass time and challenge your reflexes! Enjoy the ride!
+
+## **Game Features:**
+
+Dodge obstacles as you race to the finish line.
+
+Increasing difficulty as you progress.
+
+Fast and responsive controls.
+
+Simulates the changing lane.

@@ -39,7 +39,7 @@ SDL2
   ```bash
   ./falling-brick-game
   ```
-## **Usage:**
+## **Usage**
 
 By default, the game uses the core SDL2 library for graphics.
 
@@ -47,7 +47,7 @@ To use additional SDL2 features like SDL2_image, SDL2_ttf, SDL2_net, or SDL2_mix
 
 This game is a simple, fun way to pass time and challenge your reflexes! Enjoy the ride!
 
-## **Game Features:**
+## **Game Features**
 
 Dodge obstacles as you race to the finish line.
 

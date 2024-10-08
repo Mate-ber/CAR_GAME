@@ -25,7 +25,7 @@ SDL2
 1. **Navigate to the project directory:**
 
   ```bash
-  cd CAR_GAME
+  cd falling-brick-game 
   ```
 2. **Build the project: Make sure CMake is installed, then run the following commands in the terminal:**
 

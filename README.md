@@ -12,7 +12,8 @@ This fast-paced, thrilling game uses the **SDL2** library to render smooth graph
    ```bash
    git clone https://github.com/Mate-ber/CAR_GAME.git
    ```
-2. **Install necessary dependencies:** 
+2. **Install necessary dependencies:**
+
 Make sure to install all required libraries on your machine, especially SDL2 and its related packages:
 
 SDL2

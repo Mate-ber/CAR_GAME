@@ -54,4 +54,4 @@ Increasing difficulty as you progress.
 
 Fast and responsive controls.
 
-Simulates the changing lane.
+Simulates the changing lane, using physics.

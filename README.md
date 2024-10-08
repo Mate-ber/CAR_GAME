@@ -1,4 +1,4 @@
-#CAR GAME 
+# **CAR GAME**
 
 Welcome to the car game where you need to pass all the falling bricks and cars and go to the finish line.
 
